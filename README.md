@@ -3,8 +3,8 @@
 ## How to install and launch?
 
 ### Before that
-The application (front and back) already has been fully deployed.
-Front: https://bwinw.vercel.app/
+The application (front and back) already has been fully deployed. \
+Front: https://bwinw.vercel.app/ \
 Back: https://bwinw.onrender.com
 
 ### Backend
