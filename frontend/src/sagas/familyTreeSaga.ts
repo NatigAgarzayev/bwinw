@@ -9,9 +9,11 @@ import {
     getFamilyTrees
 } from '../actions/familyTreeActions'
 
+const BASE_URL = "https://bwinw.onrender.com"
+
 function* fetchFamilyTrees(): Generator<any, void, any> {
     try {
-        const { data } = yield call(axios.get, 'http://localhost:4000/api/family-trees')
+        const { data } = yield call(axios.get, `${BASE_URL}/api/family-trees`)
         yield put(setFamilyTrees(data))
     } catch (error) {
         console.error('Error fetching family trees:', error)
@@ -20,7 +22,7 @@ function* fetchFamilyTrees(): Generator<any, void, any> {
 
 function* createTree(action: any): Generator<any, void, any> {
     try {
-        yield call(axios.post, 'http://localhost:4000/api/family-trees', {
+        yield call(axios.post, `${BASE_URL}/api/family-trees`, {
             title: action.payload
         })
         yield put(getFamilyTrees())
@@ -32,7 +34,7 @@ function* createTree(action: any): Generator<any, void, any> {
 function* updateTree(action: any): Generator<any, void, any> {
     try {
         const { id, title } = action.payload
-        yield call(axios.put, `http://localhost:4000/api/family-trees/${id}`, { title })
+        yield call(axios.put, `${BASE_URL}/api/family-trees/${id}`, { title })
         yield put(getFamilyTrees())
     } catch (error) {
         console.error('Error updating family tree:', error)
@@ -42,7 +44,7 @@ function* updateTree(action: any): Generator<any, void, any> {
 function* deleteTree(action: any): Generator<any, void, any> {
     try {
         const id = action.payload
-        yield call(axios.delete, `http://localhost:4000/api/family-trees/${id}`)
+        yield call(axios.delete, `${BASE_URL}/api/family-trees/${id}`)
         yield put(getFamilyTrees())
     } catch (error) {
         console.error('Error deleting family tree:', error)

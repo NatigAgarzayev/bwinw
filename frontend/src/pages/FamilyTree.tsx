@@ -40,6 +40,7 @@ import {
     updateFamilyMember,
     deleteFamilyMember
 } from '../actions/familyMemberActions'
+import toast from 'react-hot-toast'
 
 type MemberPosition = 'grandparent' | 'parent' | 'child' | 'grandchild'
 
@@ -110,8 +111,10 @@ export default function FamilyTree() {
         const payload = { ...form, parent_id: form.parent_id || null }
         if (editing) {
             dispatch(updateFamilyMember(editing.id, payload))
+            toast.success('Family member edited successfully!')
         } else {
             dispatch(createFamilyMember(payload))
+            toast.success('Family member added successfully!')
         }
         handleClose()
     }

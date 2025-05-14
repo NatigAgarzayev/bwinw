@@ -9,9 +9,11 @@ import {
     getFamilyMembers,
 } from '../actions/familyMemberActions'
 
+const BASE_URL = "https://bwinw.onrender.com"
+
 function* fetchFamilyMembers(action: any): Generator<any, void, any> {
     try {
-        const res = yield call(axios.get, `http://localhost:4000/api/family-members/${action.payload}`)
+        const res = yield call(axios.get, `${BASE_URL}/api/family-members/${action.payload}`)
         yield put(setFamilyMembers(res.data))
     } catch (err) {
         console.error('Fetch error:', err)
@@ -20,7 +22,7 @@ function* fetchFamilyMembers(action: any): Generator<any, void, any> {
 
 function* createMember(action: any): Generator<any, void, any> {
     try {
-        yield call(axios.post, 'http://localhost:4000/api/family-members', action.payload)
+        yield call(axios.post, `${BASE_URL}/api/family-members`, action.payload)
         yield put(getFamilyMembers(action.payload.tree_id))
     } catch (err) {
         console.error('Create error:', err)
@@ -30,7 +32,7 @@ function* createMember(action: any): Generator<any, void, any> {
 function* updateMember(action: any): Generator<any, void, any> {
     try {
         const { id, updated } = action.payload
-        yield call(axios.put, `http://localhost:4000/api/family-members/${id}`, updated)
+        yield call(axios.put, `${BASE_URL}/api/family-members/${id}`, updated)
         yield put(getFamilyMembers(updated.tree_id))
     } catch (err) {
         console.error('Update error:', err)
@@ -40,7 +42,7 @@ function* updateMember(action: any): Generator<any, void, any> {
 function* deleteMember(action: any) {
     try {
         const { id, treeId } = action.payload
-        yield call(axios.delete, `http://localhost:4000/api/family-members/${id}`)
+        yield call(axios.delete, `${BASE_URL}/api/family-members/${id}`)
         // now re-fetch this tree’s members
         yield put(getFamilyMembers(treeId))
     } catch (err) {
